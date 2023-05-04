@@ -1,4 +1,5 @@
 Express
+express-validator
 
 // Databases
 MongoDB

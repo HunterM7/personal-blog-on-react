@@ -1,6 +1,10 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose'
+import { validationResult } from 'express-validator'
+
+// Validation
+import { registerValidation } from './validations/auth.js'
 
 // Connecting to DB
 mongoose
@@ -16,23 +20,15 @@ const app = express()
 app.use(express.json())
 
 // Endpoints
-app.get('/', function (req, res) {
-  res.send('Hello world!')
-})
+app.post('/auth/register', registerValidation, function (req, res) {
+  const errors = validationResult(req)
 
-app.post('/auth/login', function (req, res) {
-  const token = jwt.sign(
-    {
-      email: req.body.email,
-      firstName: 'Anton',
-      lastName: 'Meshchaninov',
-    },
-    'secretKey',
-  )
+  if (!errors.isEmpty()) {
+    return res.status(400).json(errors.array())
+  }
 
   res.json({
     success: true,
-    token,
   })
 })
 
