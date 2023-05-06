@@ -24,27 +24,77 @@ const app = express()
 app.use(express.json())
 
 // Endpoints
-app.post('/auth/register', registerValidation, async function (req, res) {
-  const errors = validationResult(req)
 
-  if (!errors.isEmpty()) {
-    return res.status(400).json(errors.array())
+// Login
+app.post('/auth/login', async function (req, res) {
+  try {
+    const user = await UserModel.findOne({ email: req.body.email })
+
+    if (!user) {
+      return res.status(404).json({ message: 'Пользователь не найден' })
+    }
+
+    const isValidPass = await bcrypt.compare(
+      req.body.password,
+      user._doc.passwordHash,
+    )
+
+    if (!isValidPass) {
+      return res.status(400).json({ message: 'Неверный логин или пароль' })
+    }
+
+    const token = jwt.sign(
+      {
+        _id: user._id,
+      },
+      'secretToken123',
+      { expiresIn: '30d' },
+    )
+
+    res.status(200).json({ ...user._doc, token })
+  } catch (error) {
+    console.log(error.message)
+
+    res.status(500).json({ message: 'Не удалось авторизоваться' })
   }
+})
 
-  const password = req.body.password
-  const salt = await bcrypt.genSalt(10)
-  const passwordHash = await bcrypt.hash(password, salt)
+// Register
+app.post('/auth/register', registerValidation, async function (req, res) {
+  try {
+    const errors = validationResult(req)
 
-  const doc = new UserModel({
-    fullName: req.body.fullName,
-    email: req.body.email,
-    passwordHash,
-    avatarUrl: req.body.avatarUrl,
-  })
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array())
+    }
 
-  const user = await doc.save()
+    const password = req.body.password
+    const salt = await bcrypt.genSalt(10)
+    const passwordHash = await bcrypt.hash(password, salt)
 
-  res.json(user)
+    const doc = new UserModel({
+      fullName: req.body.fullName,
+      email: req.body.email,
+      passwordHash,
+      avatarUrl: req.body.avatarUrl,
+    })
+
+    const user = await doc.save()
+
+    const token = jwt.sign(
+      {
+        _id: user._id,
+      },
+      'secretToken123',
+      { expiresIn: '30d' },
+    )
+
+    res.json({ ...user._doc, token })
+  } catch (error) {
+    console.log(error)
+
+    res.status(500).json({ message: 'Не удалось зарегистрироваться.' })
+  }
 })
 
 // Start server
