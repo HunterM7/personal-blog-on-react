@@ -36,7 +36,7 @@ app.post('/auth/register', registerValidation, UserController.register)
 app.get('/posts/:id', PostController.getOne)
 app.get('/posts', PostController.getAll)
 app.post('/posts', checkAuth, createPostValidation, PostController.create)
-// app.patch('/posts/:id', PostController.update)
+app.patch('/posts/:id', checkAuth, PostController.update)
 app.delete('/posts/:id', checkAuth, PostController.remove)
 
 // === === === ===

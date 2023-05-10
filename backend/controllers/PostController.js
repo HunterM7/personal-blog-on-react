@@ -37,7 +37,28 @@ export async function getAll(req, res) {
 
 // Update post
 export async function update(req, res) {
-	
+  try {
+    const postId = req.params.id
+
+    const post = await PostModel.findByIdAndUpdate(
+      postId,
+      {
+        title: req.body.title,
+        text: req.body.text,
+        imageUrl: req.body.imageUrl,
+        user: req.userId,
+        tags: req.body.tags,
+      },
+      { returnDocument: 'after' },
+    )
+
+    if (!post)
+      return res.status(404).json({ message: 'Не удалось найти статью' })
+
+    res.status(200).json(post)
+  } catch (error) {
+    res.status(500).json('Не удалось обновить статью')
+  }
 }
 
 // Delete post
