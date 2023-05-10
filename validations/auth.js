@@ -9,3 +9,11 @@ export const registerValidation = [
   body('fullName', 'Необходимо указать полное имя').isLength({ min: 3 }),
   body('avatarUrl', 'Неверная ссылка на фото').optional().isURL(),
 ]
+
+export const loginValidation = [
+  body('email', 'Неверный формат почты e-mail').isEmail(),
+  body('password', 'Пароль должен содержать от 6 до 20 символов').isLength({
+    min: 6,
+    max: 20,
+  }),
+]
