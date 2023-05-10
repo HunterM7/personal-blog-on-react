@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 
 // Validation
 import { loginValidation, registerValidation } from './validations/auth.js'
+import { createPostValidation } from './validations/posts.js'
 
 // Controllers
 import {
@@ -10,6 +11,7 @@ import {
   userLogin,
   userRegister,
 } from './controllers/UserController.js'
+import { createPost } from './controllers/PostController.js'
 
 // Utils
 import checkAuth from './utils/checkAuth.js'
@@ -35,6 +37,7 @@ app.post('/auth/login', loginValidation, userLogin)
 app.post('/auth/register', registerValidation, userRegister)
 
 // Posts
+app.post('/posts', createPostValidation, createPost)
 
 // Start server
 app.listen(4444, function (err) {
