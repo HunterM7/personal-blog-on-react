@@ -6,11 +6,10 @@ import { validationResult } from 'express-validator'
 import UserModel from '../models/User.js'
 
 // Utils
-import checkAuth from '../utils/checkAuth.js'
 import { encryptionKey } from '../utils/constants.js'
 
 // Registration controller
-export async function userRegister(req, res) {
+export async function register(req, res) {
   try {
     const errors = validationResult(req)
 
@@ -41,14 +40,12 @@ export async function userRegister(req, res) {
 
     res.json({ ...user._doc, token })
   } catch (error) {
-    console.log(error)
-
     res.status(500).json({ message: 'Не удалось зарегистрироваться.' })
   }
 }
 
 // Login controller
-export async function userLogin(req, res) {
+export async function login(req, res) {
   try {
     const user = await UserModel.findOne({ email: req.body.email })
 
@@ -75,14 +72,12 @@ export async function userLogin(req, res) {
 
     res.status(200).json({ ...user._doc, token })
   } catch (error) {
-    console.log(error.message)
-
     res.status(500).json({ message: 'Не удалось авторизоваться' })
   }
 }
 
 // Get User
-export async function getUser(req, res) {
+export async function get(req, res) {
   try {
     const user = await UserModel.findById(req.userId)
 

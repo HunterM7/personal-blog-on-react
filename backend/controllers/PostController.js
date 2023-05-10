@@ -1,7 +1,62 @@
 // Models
 import PostModel from '../models/Post.js'
 
-export async function createPost(req, res) {
+// Get one post
+export async function getOne(req, res) {
+  try {
+    const postId = req.params.id
+
+    const post = await PostModel.findByIdAndUpdate(
+      postId,
+      {
+        $inc: { viewsCount: 1 },
+      },
+      { returnDocument: 'after' },
+    )
+
+    if (!post) {
+      return res.status(404).json({ message: 'Такой статьи не существует' })
+    }
+
+    res.json(post)
+  } catch (error) {
+    res.status(500).json({ message: 'Не удалось получить статью' })
+  }
+}
+
+// Get all posts
+export async function getAll(req, res) {
+  try {
+    const posts = await PostModel.find().populate('user').exec()
+
+    res.status(200).json(posts)
+  } catch (error) {
+    res.status(500).json({ message: 'Не удалось получить статьи' })
+  }
+}
+
+// Update post
+export async function update(req, res) {
+	
+}
+
+// Delete post
+export async function remove(req, res) {
+  try {
+    const postId = req.params.id
+
+    const post = await PostModel.findByIdAndDelete(postId)
+
+    if (!post) return res.status(404).json({ message: 'Статья не найдена' })
+
+    res.status(200).json({ message: 'Статья успешно удалена' })
+  } catch (error) {
+    res.status(500).json({ message: 'Не удалось удалить статью' })
+  }
+}
+
+// Create post
+export async function create(req, res) {
   try {
     const doc = new PostModel({
       title: req.body.title,
@@ -15,8 +70,6 @@ export async function createPost(req, res) {
 
     res.status(200).json(post)
   } catch (error) {
-    console.log(error)
-
     res.status(500).json({ message: 'Не удалось создать статью' })
   }
 }

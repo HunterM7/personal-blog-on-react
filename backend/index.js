@@ -6,12 +6,8 @@ import { loginValidation, registerValidation } from './validations/auth.js'
 import { createPostValidation } from './validations/posts.js'
 
 // Controllers
-import {
-  getUser,
-  userLogin,
-  userRegister,
-} from './controllers/UserController.js'
-import { createPost } from './controllers/PostController.js'
+import * as UserController from './controllers/UserController.js'
+import * as PostController from './controllers/PostController.js'
 
 // Utils
 import checkAuth from './utils/checkAuth.js'
@@ -29,15 +25,21 @@ const app = express()
 // For using json
 app.use(express.json())
 
-// Endpoints
+// === Endpoints ===
 
 // Users
-app.get('/auth/user', checkAuth, getUser)
-app.post('/auth/login', loginValidation, userLogin)
-app.post('/auth/register', registerValidation, userRegister)
+app.get('/auth/user', checkAuth, UserController.get)
+app.post('/auth/login', loginValidation, UserController.login)
+app.post('/auth/register', registerValidation, UserController.register)
 
 // Posts
-app.post('/posts', createPostValidation, createPost)
+app.get('/posts/:id', PostController.getOne)
+app.get('/posts', PostController.getAll)
+app.post('/posts', checkAuth, createPostValidation, PostController.create)
+// app.patch('/posts/:id', PostController.update)
+app.delete('/posts/:id', checkAuth, PostController.remove)
+
+// === === === ===
 
 // Start server
 app.listen(4444, function (err) {
