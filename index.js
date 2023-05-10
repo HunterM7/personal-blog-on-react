@@ -29,14 +29,12 @@ app.use(express.json())
 
 // Endpoints
 
-// Get user
+// Users
 app.get('/auth/user', checkAuth, getUser)
-
-// Login
 app.post('/auth/login', userLogin)
-
-// Register
 app.post('/auth/register', registerValidation, userRegister)
+
+// Posts
 
 // Start server
 app.listen(4444, function (err) {
