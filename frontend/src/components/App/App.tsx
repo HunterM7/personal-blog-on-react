@@ -1,10 +1,22 @@
-import React from 'react'
+import Container from '@mui/material/Container'
 
-// Styles
-import './App.scss'
+// Components
+import { Header } from 'components'
+import { Home, FullPost, Registration, AddPost, Login } from 'pages'
 
-const App: React.FC = () => {
-  return <h1>Template</h1>
+function App() {
+  return (
+    <>
+      <Header />
+      <Container maxWidth="lg">
+        <Home />
+        {/*<FullPost />*/}
+        {/*<AddPost />*/}
+        {/*<Login />*/}
+        {/*<Registration />*/}
+      </Container>
+    </>
+  )
 }
 
 export default App
