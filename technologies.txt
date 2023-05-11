@@ -5,6 +5,9 @@
 	multer
 
 	// Databases
-	MongoDB
-	mongoose
-	bcrypt
+		MongoDB
+		mongoose
+		bcrypt
+
+	// Backend Hosting
+		Vercel
