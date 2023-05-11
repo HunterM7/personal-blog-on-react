@@ -1,0 +1,10 @@
+// === Backend ===
+
+	Express
+	express-validator
+	multer
+
+	// Databases
+	MongoDB
+	mongoose
+	bcrypt
