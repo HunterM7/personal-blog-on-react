@@ -16,6 +16,7 @@ firebase.json
 .env.development.local
 .env.test.local
 .env.production.local
+/uploads/*
 .TODO
 
 npm-debug.log*
