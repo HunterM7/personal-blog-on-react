@@ -1,5 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
 
 import multer from 'multer'
 
@@ -14,14 +15,14 @@ import { UserController, PostController } from './controllers/index.js'
 import { checkAuth, handleValidationErrors } from './utils/index.js'
 
 // Connecting to DB
+dotenv.config()
+
+const connectLink = process.env.MONGO_DB_CONNECT_LINK
+
 mongoose
-  .connect(
-    'mongodb+srv://admin:1234567As@personal-blog.52bvf2n.mongodb.net/blog?retryWrites=true&w=majority',
-  )
+  .connect(connectLink)
   .then(() => console.log('DB is ok.'))
   .catch((error) => console.log(error))
-
-const PORT = process.env.PORT || 4444
 
 // Initializing the app
 const app = express()
@@ -93,6 +94,8 @@ app.post('/uploads', checkAuth, upload.single('image'), function (req, res) {
 // === === === ===
 
 // Start server
+const PORT = process.env.PORT
+
 app.listen(PORT, function (err) {
   if (err) return console.log(err)
 
