@@ -1,7 +1,0 @@
-Express
-express-validator
-
-// Databases
-MongoDB
-mongoose
-bcrypt
