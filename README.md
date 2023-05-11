@@ -1,1 +1,1 @@
-### Fullstack pproject - Personal blog
+### Fullstack project - Personal blog
