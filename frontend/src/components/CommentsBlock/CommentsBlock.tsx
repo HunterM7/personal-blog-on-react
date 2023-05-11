@@ -1,15 +1,30 @@
 import React from 'react'
-import ListItem from '@mui/material/ListItem'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import Avatar from '@mui/material/Avatar'
-import ListItemText from '@mui/material/ListItemText'
-import Divider from '@mui/material/Divider'
-import List from '@mui/material/List'
-import Skeleton from '@mui/material/Skeleton'
+import {
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  Divider,
+  List,
+  Skeleton,
+} from '@mui/material'
 
+// Types
+import { IComment } from 'types'
+
+// Components
 import { SideBlock } from 'components'
 
-const CommentsBlock = ({ items, children, isLoading = true }) => {
+interface ICommentsBlock {
+  items: IComment[]
+  isLoading: boolean
+}
+
+const CommentsBlock: React.FC<React.PropsWithChildren<ICommentsBlock>> = ({
+  items,
+  children,
+  isLoading = true,
+}) => {
   return (
     <SideBlock title="Комментарии">
       <List>
@@ -23,6 +38,7 @@ const CommentsBlock = ({ items, children, isLoading = true }) => {
                   <Avatar alt={obj.user.fullName} src={obj.user.avatarUrl} />
                 )}
               </ListItemAvatar>
+
               {isLoading ? (
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <Skeleton variant="text" height={25} width={120} />

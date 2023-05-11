@@ -6,6 +6,9 @@ import EditIcon from '@mui/icons-material/Edit'
 import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined'
 import CommentIcon from '@mui/icons-material/ChatBubbleOutlineOutlined'
 
+// Types
+import { IUser } from 'types'
+
 // Components
 import { UserInfo } from 'components'
 
@@ -14,7 +17,21 @@ import { PostSkeleton } from './Skeleton'
 // Styles
 import styles from './Post.module.scss'
 
-const Post = ({
+interface IPost {
+  _id: number
+  title: string
+  createdAt: string
+  imageUrl: string
+  user: IUser
+  viewsCount: number
+  commentsCount: number
+  tags: string[]
+  isFullPost: boolean
+  isLoading: boolean
+  isEditable: boolean
+}
+
+const Post: React.FC<React.PropsWithChildren<IPost>> = ({
   _id,
   title,
   createdAt,
@@ -23,16 +40,18 @@ const Post = ({
   viewsCount,
   commentsCount,
   tags,
-  children,
   isFullPost,
   isLoading,
   isEditable,
+  children,
 }) => {
   if (isLoading) {
     return <PostSkeleton />
   }
 
-  const onClickRemove = () => {}
+  const onClickRemove = () => {
+    console.log('click remove')
+  }
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>

@@ -1,9 +1,7 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
-import TextField from '@mui/material/TextField'
-import Paper from '@mui/material/Paper'
-import Button from '@mui/material/Button'
+import { Typography, TextField, Paper, Button } from '@mui/material'
 
+// Styles
 import styles from './Login.module.scss'
 
 const Login = () => {
@@ -12,6 +10,7 @@ const Login = () => {
       <Typography classes={{ root: styles.title }} variant="h5">
         Вход в аккаунт
       </Typography>
+
       <TextField
         className={styles.field}
         label="E-Mail"
@@ -19,7 +18,9 @@ const Login = () => {
         helperText="Неверно указана почта"
         fullWidth
       />
+
       <TextField className={styles.field} label="Пароль" fullWidth />
+
       <Button size="large" variant="contained" fullWidth>
         Войти
       </Button>
