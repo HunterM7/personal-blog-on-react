@@ -1,18 +1,19 @@
 import React from 'react'
 import clsx from 'clsx'
-import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Clear'
-import EditIcon from '@mui/icons-material/Edit'
-import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined'
-import CommentIcon from '@mui/icons-material/ChatBubbleOutlineOutlined'
+
+import { IconButton } from '@mui/material'
+import {
+  Clear as DeleteIcon,
+  Edit as EditIcon,
+  RemoveRedEyeOutlined as EyeIcon,
+  ChatBubbleOutlineOutlined as CommentIcon,
+} from '@mui/icons-material'
 
 // Types
 import { IUser } from 'types'
 
 // Components
-import { UserInfo } from 'components'
-
-import { PostSkeleton } from './Skeleton'
+import { UserInfo, PostSkeleton } from 'components'
 
 // Styles
 import styles from './Post.module.scss'
@@ -62,11 +63,13 @@ const Post: React.FC<React.PropsWithChildren<IPost>> = ({
               <EditIcon />
             </IconButton>
           </a>
+
           <IconButton onClick={onClickRemove} color="secondary">
             <DeleteIcon />
           </IconButton>
         </div>
       )}
+
       {imageUrl && (
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
@@ -76,12 +79,14 @@ const Post: React.FC<React.PropsWithChildren<IPost>> = ({
       )}
       <div className={styles.wrapper}>
         <UserInfo {...user} additionalText={createdAt} />
+
         <div className={styles.indention}>
           <h2
             className={clsx(styles.title, { [styles.titleFull]: isFullPost })}
           >
             {isFullPost ? title : <a href={`/posts/${_id}`}>{title}</a>}
           </h2>
+
           <ul className={styles.tags}>
             {tags.map(name => (
               <li key={name}>
@@ -89,12 +94,15 @@ const Post: React.FC<React.PropsWithChildren<IPost>> = ({
               </li>
             ))}
           </ul>
+
           {children && <div className={styles.content}>{children}</div>}
+
           <ul className={styles.postDetails}>
             <li>
               <EyeIcon />
               <span>{viewsCount}</span>
             </li>
+
             <li>
               <CommentIcon />
               <span>{commentsCount}</span>

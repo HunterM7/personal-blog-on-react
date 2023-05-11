@@ -51,6 +51,7 @@ const CommentsBlock: React.FC<React.PropsWithChildren<ICommentsBlock>> = ({
                 />
               )}
             </ListItem>
+
             <Divider variant="inset" component="li" />
           </React.Fragment>
         ))}

@@ -3,11 +3,11 @@ import React from 'react'
 // Components
 import { AddComment, CommentsBlock, Post } from 'components'
 
-const FullPost = () => {
+const FullPost: React.FC = () => {
   return (
     <>
       <Post
-        id={1}
+        _id={1}
         title="Roast the code #1 | Rock Paper Scissors"
         imageUrl="https://res.cloudinary.com/practicaldev/image/fetch/s--UnAfrEG8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/icohm5g0axh9wjmu4oc3.png"
         user={{
@@ -20,6 +20,8 @@ const FullPost = () => {
         commentsCount={3}
         tags={['react', 'fun', 'typescript']}
         isFullPost
+        isLoading={false}
+        isEditable={false}
       >
         <p>
           {`Hey there! 👋 I'm starting a new series called "Roast the Code", where
@@ -29,6 +31,7 @@ const FullPost = () => {
           roast as hard as you can!!`}
         </p>
       </Post>
+
       <CommentsBlock
         items={[
           {

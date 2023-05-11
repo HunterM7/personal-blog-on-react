@@ -1,21 +1,30 @@
 import React from 'react'
 
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import TagIcon from '@mui/icons-material/Tag'
-import ListItemText from '@mui/material/ListItemText'
-import Skeleton from '@mui/material/Skeleton'
+import { Tag as TagIcon } from '@mui/icons-material'
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Skeleton,
+} from '@mui/material'
 
+// Components
 import { SideBlock } from 'components'
 
-const TagsBlock = ({ items, isLoading = true }) => {
+interface ITagsBlock {
+  items: string[]
+  isLoading: boolean
+}
+
+const TagsBlock: React.FC<ITagsBlock> = ({ items, isLoading = true }) => {
   return (
     <SideBlock title="Тэги">
       <List>
         {(isLoading ? [...Array(5)] : items).map((name, i) => (
           <a
+            key={i}
             style={{ textDecoration: 'none', color: 'black' }}
             href={`/tags/${name}`}
           >
@@ -24,6 +33,7 @@ const TagsBlock = ({ items, isLoading = true }) => {
                 <ListItemIcon>
                   <TagIcon />
                 </ListItemIcon>
+
                 {isLoading ? (
                   <Skeleton width={100} />
                 ) : (

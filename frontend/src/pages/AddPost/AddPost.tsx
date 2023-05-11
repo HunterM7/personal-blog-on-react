@@ -1,25 +1,29 @@
 import React from 'react'
-import TextField from '@mui/material/TextField'
-import Paper from '@mui/material/Paper'
-import Button from '@mui/material/Button'
+import EasyMDE from 'easymde'
 import SimpleMDE from 'react-simplemde-editor'
+import { TextField, Paper, Button } from '@mui/material'
 
+// Styles
 import 'easymde/dist/easymde.min.css'
 import styles from './AddPost.module.scss'
 
-const AddPost = () => {
+const AddPost: React.FC = () => {
   const imageUrl = ''
   const [value, setValue] = React.useState('')
 
-  const handleChangeFile = () => {}
+  const handleChangeFile = () => {
+    console.log('test')
+  }
 
-  const onClickRemoveImage = () => {}
+  const onClickRemoveImage = () => {
+    console.log('test')
+  }
 
-  const onChange = React.useCallback(value => {
+  const onChange = (value: string) => {
     setValue(value)
-  }, [])
+  }
 
-  const options = React.useMemo(
+  const options = React.useMemo<EasyMDE.Options>(
     () => ({
       spellChecker: false,
       maxHeight: '400px',
@@ -27,6 +31,7 @@ const AddPost = () => {
       placeholder: 'Введите текст...',
       status: false,
       autosave: {
+        uniqueId: crypto.randomUUID(),
         enabled: true,
         delay: 1000,
       },

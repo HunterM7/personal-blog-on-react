@@ -1,11 +1,10 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import Container from '@mui/material/Container'
+import { Button, Container } from '@mui/material'
 
 // Styles
 import styles from './Header.module.scss'
 
-const Header = () => {
+const Header: React.FC = () => {
   const isAuth = false
 
   const onClickLogout = () => {
@@ -19,12 +18,14 @@ const Header = () => {
           <a className={styles.logo} href="/">
             <div>ARCHAKOV BLOG</div>
           </a>
+
           <div className={styles.buttons}>
             {isAuth ? (
               <>
                 <a href="/posts/create">
                   <Button variant="contained">Написать статью</Button>
                 </a>
+
                 <Button
                   onClick={onClickLogout}
                   variant="contained"
@@ -38,6 +39,7 @@ const Header = () => {
                 <a href="/login">
                   <Button variant="outlined">Войти</Button>
                 </a>
+
                 <a href="/register">
                   <Button variant="contained">Создать аккаунт</Button>
                 </a>
