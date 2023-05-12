@@ -1,10 +1,20 @@
 import React from 'react'
 import { Tab, Tabs, Grid } from '@mui/material'
 
+// Redux
+import { fetchPosts } from 'redux/slices/posts'
+import { useAppDispatch } from 'redux/store'
+
 // Components
 import { CommentsBlock, Post, TagsBlock } from 'components'
 
 const Home: React.FC = () => {
+  const dispatch = useAppDispatch()
+
+  React.useEffect(() => {
+    dispatch(fetchPosts())
+  }, [dispatch])
+
   return (
     <>
       <Tabs

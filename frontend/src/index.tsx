@@ -1,9 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material'
 
+// Theme
 import { theme } from 'theme'
+
+// Redux
+import store from 'redux/store'
 
 // Styles
 import 'scss/index.scss'
@@ -18,9 +23,11 @@ root.render(
   <React.StrictMode>
     <CssBaseline />
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
 )
