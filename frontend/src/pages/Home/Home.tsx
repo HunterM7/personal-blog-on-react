@@ -3,13 +3,15 @@ import { Tab, Tabs, Grid } from '@mui/material'
 
 // Redux
 import { fetchPosts } from 'redux/slices/posts'
-import { useAppDispatch } from 'redux/store'
+import { useAppDispatch, useAppSelector } from 'redux/store'
 
 // Components
-import { CommentsBlock, Post, TagsBlock } from 'components'
+import { CommentsBlock, Post, PostSkeleton, TagsBlock } from 'components'
+import { postsSelector } from 'redux/selectors/postsSelector'
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch()
+  const { posts } = useAppSelector(postsSelector)
 
   React.useEffect(() => {
     dispatch(fetchPosts())
@@ -17,36 +19,35 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Tabs
-        style={{ marginBottom: 15 }}
-        value={0}
-        aria-label="basic tabs example"
-      >
+      <Tabs style={{ marginBottom: 15 }} value={0} aria-label="Разделы статей">
         <Tab label="Новые" />
         <Tab label="Популярные" />
       </Tabs>
 
       <Grid container spacing={4}>
         <Grid xs={8} item>
-          {[...Array(5)].map((_, i) => (
-            <Post
-              key={i}
-              _id={i}
-              title="Roast the code #1 | Rock Paper Scissors"
-              imageUrl="https://res.cloudinary.com/practicaldev/image/fetch/s--UnAfrEG8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/icohm5g0axh9wjmu4oc3.png"
-              user={{
-                avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
-                fullName: 'Keff',
-              }}
-              createdAt={'12 июня 2022 г.'}
-              viewsCount={150}
-              commentsCount={3}
-              tags={['react', 'fun', 'typescript']}
-              isEditable
-              isFullPost={false}
-              isLoading={false}
-            />
-          ))}
+          {posts.items ? (
+            posts.items.map(post => (
+              <Post
+                key={post._id}
+                _id={post._id}
+                title={post.title}
+                imageUrl={post.imageUrl}
+                user={{
+                  _id: post.user._id,
+                  avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
+                  fullName: post.user.fullName,
+                }}
+                createdAt={'12 июня 2022 г.'}
+                viewsCount={post.viewsCount}
+                commentsCount={3}
+                tags={post.tags}
+                isEditable
+              />
+            ))
+          ) : (
+            <PostSkeleton />
+          )}
         </Grid>
 
         <Grid xs={4} item>
@@ -58,6 +59,7 @@ const Home: React.FC = () => {
             items={[
               {
                 user: {
+                  _id: 'dasdaskjdkalsdjkas',
                   fullName: 'Вася Пупкин',
                   avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
                 },
@@ -65,13 +67,14 @@ const Home: React.FC = () => {
               },
               {
                 user: {
+                  _id: 'dakjsdjasknjdkajkska',
                   fullName: 'Иван Иванов',
                   avatarUrl: 'https://mui.com/static/images/avatar/2.jpg',
                 },
                 text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top',
               },
             ]}
-            isLoading={true}
+            isLoading={false}
           />
         </Grid>
       </Grid>

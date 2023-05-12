@@ -5,8 +5,10 @@ export enum EnumStatus {
 }
 
 export interface IUser {
+  _id: string
   fullName: string
   avatarUrl: string
+  // email: string
 }
 
 export interface IComment {
@@ -20,6 +22,7 @@ export interface IPost {
   text: string
   tags: string[]
   viewsCount: number
+  imageUrl: string
   user: {
     _id: string
     fullName: string

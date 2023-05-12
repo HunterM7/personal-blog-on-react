@@ -1,19 +1,13 @@
 import React from 'react'
-import {
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  Divider,
-  List,
-  Skeleton,
-} from '@mui/material'
+import { List } from '@mui/material'
 
 // Types
 import { IComment } from 'types'
 
 // Components
 import { SideBlock } from 'components'
+import CommentPlug from 'components/CommentCard/CommentPlug'
+import CommentCard from 'components/CommentCard/CommentCard'
 
 interface ICommentsBlock {
   items: IComment[]
@@ -23,39 +17,16 @@ interface ICommentsBlock {
 const CommentsBlock: React.FC<React.PropsWithChildren<ICommentsBlock>> = ({
   items,
   children,
-  isLoading = true,
+  isLoading = false,
 }) => {
   return (
     <SideBlock title="Комментарии">
       <List>
-        {(isLoading ? [...Array(5)] : items).map((obj, index) => (
-          <React.Fragment key={index}>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                {isLoading ? (
-                  <Skeleton variant="circular" width={40} height={40} />
-                ) : (
-                  <Avatar alt={obj.user.fullName} src={obj.user.avatarUrl} />
-                )}
-              </ListItemAvatar>
-
-              {isLoading ? (
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <Skeleton variant="text" height={25} width={120} />
-                  <Skeleton variant="text" height={18} width={230} />
-                </div>
-              ) : (
-                <ListItemText
-                  primary={obj.user.fullName}
-                  secondary={obj.text}
-                />
-              )}
-            </ListItem>
-
-            <Divider variant="inset" component="li" />
-          </React.Fragment>
-        ))}
+        {isLoading
+          ? [...Array(5)].map((_, index) => <CommentPlug key={index} />)
+          : items.map(obj => <CommentCard key={obj.user._id} {...obj} />)}
       </List>
+
       {children}
     </SideBlock>
   )

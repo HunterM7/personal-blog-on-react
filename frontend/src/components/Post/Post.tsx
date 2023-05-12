@@ -22,7 +22,7 @@ import { UserInfo, PostSkeleton } from 'components'
 import styles from './Post.module.scss'
 
 interface IPost {
-  _id: number
+  _id: string
   title: string
   createdAt: string
   imageUrl: string
@@ -30,8 +30,8 @@ interface IPost {
   viewsCount: number
   commentsCount: number
   tags: string[]
-  isFullPost: boolean
-  isLoading: boolean
+  isFullPost?: boolean
+  isLoading?: boolean
   isEditable: boolean
 }
 
@@ -44,8 +44,8 @@ const Post: React.FC<React.PropsWithChildren<IPost>> = ({
   viewsCount,
   commentsCount,
   tags,
-  isFullPost,
-  isLoading,
+  isFullPost = false,
+  isLoading = false,
   isEditable,
   children,
 }) => {
