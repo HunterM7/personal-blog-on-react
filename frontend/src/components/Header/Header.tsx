@@ -1,5 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Container } from '@mui/material'
+
+// Utils
+import {
+  BASE_URL,
+  LOGIN_URL,
+  REGISTER_URL,
+  CREATE_POST_URL,
+} from 'utils/routes'
 
 // Styles
 import styles from './Header.module.scss'
@@ -15,16 +24,16 @@ const Header: React.FC = () => {
     <div className={styles.root}>
       <Container maxWidth="lg">
         <div className={styles.inner}>
-          <a className={styles.logo} href="/">
-            <div>ARCHAKOV BLOG</div>
-          </a>
+          <Link className={styles.logo} to={BASE_URL}>
+            <div>FULLSTACK BLOG</div>
+          </Link>
 
           <div className={styles.buttons}>
             {isAuth ? (
               <>
-                <a href="/posts/create">
+                <Link to={CREATE_POST_URL}>
                   <Button variant="contained">Написать статью</Button>
-                </a>
+                </Link>
 
                 <Button
                   onClick={onClickLogout}
@@ -36,13 +45,13 @@ const Header: React.FC = () => {
               </>
             ) : (
               <>
-                <a href="/login">
+                <Link to={LOGIN_URL}>
                   <Button variant="outlined">Войти</Button>
-                </a>
+                </Link>
 
-                <a href="/register">
+                <Link to={REGISTER_URL}>
                   <Button variant="contained">Создать аккаунт</Button>
-                </a>
+                </Link>
               </>
             )}
           </div>

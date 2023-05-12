@@ -1,6 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
-
 import { IconButton } from '@mui/material'
 import {
   Clear as DeleteIcon,
@@ -11,6 +11,9 @@ import {
 
 // Types
 import { IUser } from 'types'
+
+// Utils
+import { POSTS_URL, TAGS_URL } from 'utils/routes'
 
 // Components
 import { UserInfo, PostSkeleton } from 'components'
@@ -58,11 +61,11 @@ const Post: React.FC<React.PropsWithChildren<IPost>> = ({
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
       {isEditable && (
         <div className={styles.editButtons}>
-          <a href={`/posts/${_id}/edit`}>
+          <Link to={`${POSTS_URL}/${_id}/edit`}>
             <IconButton color="primary">
               <EditIcon />
             </IconButton>
-          </a>
+          </Link>
 
           <IconButton onClick={onClickRemove} color="secondary">
             <DeleteIcon />
@@ -84,13 +87,17 @@ const Post: React.FC<React.PropsWithChildren<IPost>> = ({
           <h2
             className={clsx(styles.title, { [styles.titleFull]: isFullPost })}
           >
-            {isFullPost ? title : <a href={`/posts/${_id}`}>{title}</a>}
+            {isFullPost ? (
+              title
+            ) : (
+              <Link to={`${POSTS_URL}/${_id}`}>{title}</Link>
+            )}
           </h2>
 
           <ul className={styles.tags}>
             {tags.map(name => (
               <li key={name}>
-                <a href={`/tag/${name}`}>#{name}</a>
+                <Link to={`${TAGS_URL}/${name}`}>#{name}</Link>
               </li>
             ))}
           </ul>

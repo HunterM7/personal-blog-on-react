@@ -21,7 +21,7 @@ const Home: React.FC = () => {
           {[...Array(5)].map((_, i) => (
             <Post
               key={i}
-              _id={1}
+              _id={i}
               title="Roast the code #1 | Rock Paper Scissors"
               imageUrl="https://res.cloudinary.com/practicaldev/image/fetch/s--UnAfrEG8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/icohm5g0axh9wjmu4oc3.png"
               user={{

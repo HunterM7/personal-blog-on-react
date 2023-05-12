@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 import { Tag as TagIcon } from '@mui/icons-material'
 import {
   List,
@@ -12,6 +12,7 @@ import {
 
 // Components
 import { SideBlock } from 'components'
+import { TAGS_URL } from 'utils/routes'
 
 interface ITagsBlock {
   items: string[]
@@ -23,10 +24,10 @@ const TagsBlock: React.FC<ITagsBlock> = ({ items, isLoading = true }) => {
     <SideBlock title="Тэги">
       <List>
         {(isLoading ? [...Array(5)] : items).map((name, i) => (
-          <a
+          <Link
             key={i}
             style={{ textDecoration: 'none', color: 'black' }}
-            href={`/tags/${name}`}
+            to={`${TAGS_URL}/${name}`}
           >
             <ListItem key={i} disablePadding>
               <ListItemButton>
@@ -41,7 +42,7 @@ const TagsBlock: React.FC<ITagsBlock> = ({ items, isLoading = true }) => {
                 )}
               </ListItemButton>
             </ListItem>
-          </a>
+          </Link>
         ))}
       </List>
     </SideBlock>

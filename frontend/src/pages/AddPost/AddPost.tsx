@@ -1,14 +1,18 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import EasyMDE from 'easymde'
 import SimpleMDE from 'react-simplemde-editor'
 import { TextField, Paper, Button } from '@mui/material'
+
+// Utils
+import { BASE_URL } from 'utils/routes'
 
 // Styles
 import 'easymde/dist/easymde.min.css'
 import styles from './AddPost.module.scss'
 
 const AddPost: React.FC = () => {
-  const imageUrl = ''
+  const imageUrl = '/'
   const [value, setValue] = React.useState('')
 
   const handleChangeFile = () => {
@@ -81,9 +85,9 @@ const AddPost: React.FC = () => {
         <Button size="large" variant="contained">
           Опубликовать
         </Button>
-        <a href="/">
+        <Link to={BASE_URL}>
           <Button size="large">Отмена</Button>
-        </a>
+        </Link>
       </div>
     </Paper>
   )
