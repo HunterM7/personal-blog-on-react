@@ -5,15 +5,16 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Skeleton,
 } from '@mui/material'
 import { Tag as TagIcon } from '@mui/icons-material'
 
 interface ITagCard {
-  title: string
+  title: string | null
   path: string
 }
 
-const TagCard: React.FC<ITagCard> = ({ title, path }) => {
+const TagCard: React.FC<ITagCard> = ({ title = null, path }) => {
   return (
     <Link style={{ textDecoration: 'none', color: 'black' }} to={path}>
       <ListItem disablePadding>
@@ -22,7 +23,7 @@ const TagCard: React.FC<ITagCard> = ({ title, path }) => {
             <TagIcon />
           </ListItemIcon>
 
-          <ListItemText primary={title} />
+          {title ? <ListItemText primary={title} /> : <Skeleton width={100} />}
         </ListItemButton>
       </ListItem>
     </Link>
