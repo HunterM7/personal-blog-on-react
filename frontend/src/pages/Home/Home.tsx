@@ -4,10 +4,10 @@ import { Tab, Tabs, Grid } from '@mui/material'
 // Redux
 import { fetchPosts, fetchTags } from 'redux/slices/posts'
 import { useAppDispatch, useAppSelector } from 'redux/store'
+import { postsSelector } from 'redux/selectors'
 
 // Components
 import { CommentsBlock, PostCard, PostSkeleton, TagsBlock } from 'components'
-import { postsSelector } from 'redux/selectors/postsSelector'
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch()
