@@ -2,7 +2,7 @@ import React from 'react'
 import { Tab, Tabs, Grid } from '@mui/material'
 
 // Redux
-import { fetchPosts } from 'redux/slices/posts'
+import { fetchPosts, fetchTags } from 'redux/slices/posts'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 
 // Components
@@ -11,10 +11,11 @@ import { postsSelector } from 'redux/selectors/postsSelector'
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { posts } = useAppSelector(postsSelector)
+  const { posts, tags } = useAppSelector(postsSelector)
 
   React.useEffect(() => {
     dispatch(fetchPosts())
+    dispatch(fetchTags())
   }, [dispatch])
 
   return (
@@ -51,10 +52,8 @@ const Home: React.FC = () => {
         </Grid>
 
         <Grid xs={4} item>
-          <TagsBlock
-            items={['react', 'typescript', 'заметки']}
-            isLoading={false}
-          />
+          <TagsBlock items={tags.items} />
+
           <CommentsBlock
             items={[
               {
