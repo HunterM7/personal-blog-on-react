@@ -35,6 +35,25 @@ export async function getAll(req, res) {
   }
 }
 
+// Create post
+export async function create(req, res) {
+  try {
+    const doc = new PostModel({
+      title: req.body.title,
+      text: req.body.text,
+      tags: req.body.tags,
+      imageUrl: req.body.imageUrl,
+      user: req.userId,
+    })
+
+    const post = await doc.save()
+
+    res.status(200).json(post)
+  } catch (error) {
+    res.status(500).json({ message: 'Не удалось создать статью' })
+  }
+}
+
 // Update post
 export async function update(req, res) {
   try {
@@ -76,21 +95,18 @@ export async function remove(req, res) {
   }
 }
 
-// Create post
-export async function create(req, res) {
+// Get last tags
+export async function getLastTags(req, res) {
   try {
-    const doc = new PostModel({
-      title: req.body.title,
-      text: req.body.text,
-      tags: req.body.tags,
-      imageUrl: req.body.imageUrl,
-      user: req.userId,
-    })
+    const posts = await PostModel.find().limit(5).exec()
 
-    const post = await doc.save()
+    const tags = posts
+      .map((post) => post.tags)
+      .flat()
+      .slice(0, 5)
 
-    res.status(200).json(post)
+    res.json(tags)
   } catch (error) {
-    res.status(500).json({ message: 'Не удалось создать статью' })
+    res.status(500).json({ message: 'Не удалось получить теги' })
   }
 }

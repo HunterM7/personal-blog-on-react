@@ -85,6 +85,9 @@ app.patch(
 )
 app.delete('/posts/:id', checkAuth, PostController.remove)
 
+// Tags
+app.get('/tags', PostController.getLastTags)
+
 // Upload
 app.post('/uploads', checkAuth, upload.single('image'), function (req, res) {
   try {
