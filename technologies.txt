@@ -11,3 +11,9 @@
 
 	// Backend Hosting
 		Vercel
+
+// === FrontEnd ===
+
+	React
+	Redux Toolkit
+	Typescript
