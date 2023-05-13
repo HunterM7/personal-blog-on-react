@@ -6,6 +6,7 @@ import { IPost, EnumStatus } from 'types/index'
 // Utils
 import axios from 'utils/axios'
 
+// Async actions
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async function () {
@@ -14,6 +15,12 @@ export const fetchPosts = createAsyncThunk(
     return data
   },
 )
+
+export const fetchTags = createAsyncThunk('posts/fetchTags', async function () {
+  const { data } = await axios.get<string[]>('tags')
+
+  return data
+})
 
 interface IPostsSliceState {
   posts: {
@@ -42,18 +49,33 @@ const postsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: function (builder) {
-    builder.addCase(fetchPosts.pending, function (state) {
-      state.posts.items = null
-      state.posts.status = EnumStatus.LOADING
-    })
-    builder.addCase(fetchPosts.fulfilled, function (state, action) {
-      state.posts.items = action.payload
-      state.posts.status = EnumStatus.LOADED
-    })
-    builder.addCase(fetchPosts.rejected, function (state) {
-      state.posts.items = null
-      state.posts.status = EnumStatus.ERROR
-    })
+    builder
+      // Fetching posts
+      .addCase(fetchPosts.pending, function (state) {
+        state.posts.items = null
+        state.posts.status = EnumStatus.LOADING
+      })
+      .addCase(fetchPosts.fulfilled, function (state, action) {
+        state.posts.items = action.payload
+        state.posts.status = EnumStatus.LOADED
+      })
+      .addCase(fetchPosts.rejected, function (state) {
+        state.posts.items = null
+        state.posts.status = EnumStatus.ERROR
+      })
+      // Fetching tags
+      .addCase(fetchTags.pending, function (state) {
+        state.tags.items = null
+        state.tags.status = EnumStatus.LOADING
+      })
+      .addCase(fetchTags.fulfilled, function (state, action) {
+        state.tags.items = action.payload
+        state.tags.status = EnumStatus.LOADED
+      })
+      .addCase(fetchTags.rejected, function (state) {
+        state.tags.items = null
+        state.tags.status = EnumStatus.ERROR
+      })
   },
 })
 
