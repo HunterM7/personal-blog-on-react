@@ -46,7 +46,7 @@
     "quotes": ["warn", "single"],
     "jsx-quotes": ["warn", "prefer-double"],
     "indent": [
-      "warn",
+      "off",
       2,
       {
         "SwitchCase": 1,
