@@ -17,9 +17,12 @@ const TagsBlock: React.FC<ITagsBlock> = ({ items = null }) => {
   return (
     <SideBlock title="Тэги">
       <List>
-        {(items ? items : fakeTags).map((tag, i) => (
-          <TagCard key={i} title={tag} path={`${TAGS_URL}/${tag || ''}`} />
-        ))}
+        {(items ? items : fakeTags).map((tag, i) => {
+          const path = `${TAGS_URL}/${tag || ''}`
+          const key = `${path}-${i}`
+
+          return <TagCard key={key} title={tag} path={path} />
+        })}
       </List>
     </SideBlock>
   )

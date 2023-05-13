@@ -23,7 +23,11 @@ const TagCard: React.FC<ITagCard> = ({ title = null, path }) => {
             <TagIcon />
           </ListItemIcon>
 
-          {title ? <ListItemText primary={title} /> : <Skeleton width={100} />}
+          {title ? (
+            <ListItemText primary={title} />
+          ) : (
+            <Skeleton width={100} height={29} />
+          )}
         </ListItemButton>
       </ListItem>
     </Link>

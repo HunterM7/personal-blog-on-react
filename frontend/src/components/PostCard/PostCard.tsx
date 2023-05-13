@@ -10,7 +10,7 @@ import {
 } from '@mui/icons-material'
 
 // Types
-import { IUser } from 'types'
+import { IPost } from 'types'
 
 // Utils
 import { POSTS_URL, TAGS_URL } from 'utils/routes'
@@ -19,37 +19,22 @@ import { POSTS_URL, TAGS_URL } from 'utils/routes'
 import { UserInfo, PostSkeleton } from 'components'
 
 // Styles
-import styles from './Post.module.scss'
+import styles from './PostCard.module.scss'
 
-interface IPost {
-  _id: string
-  title: string
-  createdAt: string
-  imageUrl: string
-  user: IUser
-  viewsCount: number
+interface IPostCard {
+  post: IPost | null
   commentsCount: number
-  tags: string[]
   isFullPost?: boolean
-  isLoading?: boolean
   isEditable: boolean
 }
 
-const Post: React.FC<React.PropsWithChildren<IPost>> = ({
-  _id,
-  title,
-  createdAt,
-  imageUrl,
-  user,
-  viewsCount,
+const PostCard: React.FC<IPostCard> = ({
+  post,
   commentsCount,
-  tags,
   isFullPost = false,
-  isLoading = false,
   isEditable,
-  children,
 }) => {
-  if (isLoading) {
+  if (!post) {
     return <PostSkeleton />
   }
 
@@ -61,7 +46,7 @@ const Post: React.FC<React.PropsWithChildren<IPost>> = ({
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
       {isEditable && (
         <div className={styles.editButtons}>
-          <Link to={`${POSTS_URL}/${_id}/edit`}>
+          <Link to={`${POSTS_URL}/${post._id}/edit`}>
             <IconButton color="primary">
               <EditIcon />
             </IconButton>
@@ -73,41 +58,41 @@ const Post: React.FC<React.PropsWithChildren<IPost>> = ({
         </div>
       )}
 
-      {imageUrl && (
+      {post.imageUrl && (
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={imageUrl}
-          alt={title}
+          src={post.imageUrl}
+          alt={post.title}
         />
       )}
       <div className={styles.wrapper}>
-        <UserInfo {...user} additionalText={createdAt} />
+        <UserInfo {...post.user} additionalText={post.createdAt} />
 
         <div className={styles.indention}>
           <h2
             className={clsx(styles.title, { [styles.titleFull]: isFullPost })}
           >
             {isFullPost ? (
-              title
+              post.title
             ) : (
-              <Link to={`${POSTS_URL}/${_id}`}>{title}</Link>
+              <Link to={`${POSTS_URL}/${post._id}`}>{post.title}</Link>
             )}
           </h2>
 
           <ul className={styles.tags}>
-            {tags.map(name => (
-              <li key={name}>
-                <Link to={`${TAGS_URL}/${name}`}>#{name}</Link>
+            {post.tags.map(tag => (
+              <li key={tag}>
+                <Link to={`${TAGS_URL}/${tag}`}>#{tag}</Link>
               </li>
             ))}
           </ul>
 
-          {children && <div className={styles.content}>{children}</div>}
+          {isFullPost && <div className={styles.content}>{post.text}</div>}
 
           <ul className={styles.postDetails}>
             <li>
               <EyeIcon />
-              <span>{viewsCount}</span>
+              <span>{post.viewsCount}</span>
             </li>
 
             <li>
@@ -121,4 +106,4 @@ const Post: React.FC<React.PropsWithChildren<IPost>> = ({
   )
 }
 
-export default Post
+export default PostCard

@@ -6,7 +6,7 @@ import { fetchPosts, fetchTags } from 'redux/slices/posts'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 
 // Components
-import { CommentsBlock, Post, PostSkeleton, TagsBlock } from 'components'
+import { CommentsBlock, PostCard, PostSkeleton, TagsBlock } from 'components'
 import { postsSelector } from 'redux/selectors/postsSelector'
 
 const Home: React.FC = () => {
@@ -29,20 +29,10 @@ const Home: React.FC = () => {
         <Grid xs={8} item>
           {posts.items ? (
             posts.items.map(post => (
-              <Post
+              <PostCard
+                post={post}
                 key={post._id}
-                _id={post._id}
-                title={post.title}
-                imageUrl={post.imageUrl}
-                user={{
-                  _id: post.user._id,
-                  avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
-                  fullName: post.user.fullName,
-                }}
-                createdAt={'12 июня 2022 г.'}
-                viewsCount={post.viewsCount}
                 commentsCount={3}
-                tags={post.tags}
                 isEditable
               />
             ))

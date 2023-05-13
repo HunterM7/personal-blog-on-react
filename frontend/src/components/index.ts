@@ -3,8 +3,8 @@ export { default as Header } from './Header/Header'
 
 export { default as AddComment } from './AddComment/AddComment'
 export { default as CommentsBlock } from './CommentsBlock/CommentsBlock'
-export { default as Post } from './Post/Post'
-export { default as PostSkeleton } from './Post/PostSkeleton'
+export { default as PostCard } from './PostCard/PostCard'
+export { default as PostSkeleton } from './PostCard/PostSkeleton'
 export { default as SideBlock } from './SideBlock/SideBlock'
 export { default as UserInfo } from './UserInfo/UserInfo'
 

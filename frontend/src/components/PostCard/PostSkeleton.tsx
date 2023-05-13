@@ -2,7 +2,7 @@ import React from 'react'
 import { Stack, Skeleton } from '@mui/material'
 
 // Styles
-import styles from './Post.module.scss'
+import styles from './PostCard.module.scss'
 
 const PostSkeleton: React.FC = () => {
   return (
