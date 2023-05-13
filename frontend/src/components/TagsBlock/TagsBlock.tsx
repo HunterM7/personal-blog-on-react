@@ -1,49 +1,44 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Tag as TagIcon } from '@mui/icons-material'
 import {
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
-  ListItemText,
   Skeleton,
 } from '@mui/material'
+import { Tag as TagIcon } from '@mui/icons-material'
 
 // Components
-import { SideBlock } from 'components'
+import { SideBlock, TagCard } from 'components'
 import { TAGS_URL } from 'utils/routes'
 
 interface ITagsBlock {
-  items: string[]
-  isLoading: boolean
+  items?: string[] | null
 }
 
-const TagsBlock: React.FC<ITagsBlock> = ({ items, isLoading = true }) => {
+const TagsBlock: React.FC<ITagsBlock> = ({ items = null }) => {
   return (
     <SideBlock title="Тэги">
       <List>
-        {(isLoading ? [...Array(5)] : items).map((name, i) => (
-          <Link
-            key={i}
-            style={{ textDecoration: 'none', color: 'black' }}
-            to={`${TAGS_URL}/${name}`}
-          >
-            <ListItem key={i} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <TagIcon />
-                </ListItemIcon>
+        {items
+          ? items.map((tag, i) => (
+              <TagCard
+                key={`${tag}-${i}`}
+                title={tag}
+                path={`${TAGS_URL}/${tag}`}
+              />
+            ))
+          : [...Array(5).keys()].map((_, index) => (
+              <ListItem key={index} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <TagIcon />
+                  </ListItemIcon>
 
-                {isLoading ? (
                   <Skeleton width={100} />
-                ) : (
-                  <ListItemText primary={name} />
-                )}
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
+                </ListItemButton>
+              </ListItem>
+            ))}
       </List>
     </SideBlock>
   )

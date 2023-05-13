@@ -6,5 +6,8 @@ export { default as CommentsBlock } from './CommentsBlock/CommentsBlock'
 export { default as Post } from './Post/Post'
 export { default as PostSkeleton } from './Post/PostSkeleton'
 export { default as SideBlock } from './SideBlock/SideBlock'
-export { default as TagsBlock } from './TagsBlock/TagsBlock'
 export { default as UserInfo } from './UserInfo/UserInfo'
+
+// Tags
+export { default as TagsBlock } from './TagsBlock/TagsBlock'
+export { default as TagCard } from './TagCard/TagCard'

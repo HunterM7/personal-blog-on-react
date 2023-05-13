@@ -23,7 +23,7 @@ const CommentsBlock: React.FC<React.PropsWithChildren<ICommentsBlock>> = ({
     <SideBlock title="Комментарии">
       <List>
         {isLoading
-          ? [...Array(5)].map((_, index) => <CommentPlug key={index} />)
+          ? [...Array(5).keys()].map((_, index) => <CommentPlug key={index} />)
           : items.map(obj => <CommentCard key={obj.user._id} {...obj} />)}
       </List>
 
