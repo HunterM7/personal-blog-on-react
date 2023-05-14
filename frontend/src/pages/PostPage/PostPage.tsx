@@ -3,7 +3,7 @@ import React from 'react'
 // Components
 import { AddComment, CommentsBlock, PostCard } from 'components'
 
-const FullPost: React.FC = () => {
+const PostPage: React.FC = () => {
   return (
     <>
       <PostCard
@@ -64,4 +64,4 @@ const FullPost: React.FC = () => {
   )
 }
 
-export default FullPost
+export default PostPage
