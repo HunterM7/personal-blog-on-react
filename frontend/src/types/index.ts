@@ -8,7 +8,14 @@ export interface IUser {
   _id: string
   fullName: string
   avatarUrl: string
-  // email: string
+  email: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface IUserWithToken extends IUser {
+  accessToken: string
+  refreshToken: string
 }
 
 export interface IComment {
@@ -33,4 +40,10 @@ export interface IPost {
   }
   createdAt: string
   updatedAt: string
+}
+
+// Auth
+export interface ILoginParams {
+  email: string
+  password: string
 }
