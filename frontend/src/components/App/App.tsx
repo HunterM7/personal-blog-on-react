@@ -12,7 +12,7 @@ import {
 
 // Components 'n Pages
 import { Header } from 'components'
-import { Home, PostPage, Registration, AddPost, Login } from 'pages'
+import { Home, PostPage, Registration, AddPost, LoginPage } from 'pages'
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
           <Route path={BASE_URL} element={<Home />} />
           <Route path={POST_BY_ID_URL} element={<PostPage />} />
           <Route path={CREATE_POST_URL} element={<AddPost />} />
-          <Route path={LOGIN_URL} element={<Login />} />
+          <Route path={LOGIN_URL} element={<LoginPage />} />
           <Route path={REGISTER_URL} element={<Registration />} />
         </Routes>
       </Container>

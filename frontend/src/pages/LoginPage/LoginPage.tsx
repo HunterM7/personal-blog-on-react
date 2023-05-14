@@ -1,10 +1,25 @@
 import React from 'react'
 import { Typography, TextField, Paper, Button } from '@mui/material'
 
-// Styles
-import styles from './Login.module.scss'
+// Redux
+import { useAppDispatch } from 'redux/store'
+import { loginUser } from 'redux/slices'
 
-const Login = () => {
+// Styles
+import styles from './LoginPage.module.scss'
+
+const LoginPage: React.FC = () => {
+  const dispatch = useAppDispatch()
+
+  React.useEffect(() => {
+    dispatch(
+      loginUser({
+        email: '',
+        password: '',
+      }),
+    )
+  }, [dispatch])
+
   return (
     <Paper classes={{ root: styles.root }}>
       <Typography classes={{ root: styles.title }} variant="h5">
@@ -28,4 +43,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginPage
