@@ -42,6 +42,14 @@
         "ignoreReadBeforeAssign": false
       }
     ],
+    "@typescript-eslint/no-misused-promises": [
+      2,
+      {
+        "checksVoidReturn": {
+          "attributes": false
+        }
+      }
+    ],
     "no-console": "warn",
     "quotes": ["warn", "single"],
     "jsx-quotes": ["warn", "prefer-double"],
