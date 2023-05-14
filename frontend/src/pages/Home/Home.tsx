@@ -49,6 +49,9 @@ const Home: React.FC = () => {
               {
                 user: {
                   _id: 'dasdaskjdkalsdjkas',
+                  email: 'test',
+                  createdAt: '',
+                  updatedAt: '',
                   fullName: 'Вася Пупкин',
                   avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
                 },
@@ -57,6 +60,9 @@ const Home: React.FC = () => {
               {
                 user: {
                   _id: 'dakjsdjasknjdkajkska',
+                  email: 'test',
+                  createdAt: '',
+                  updatedAt: '',
                   fullName: 'Иван Иванов',
                   avatarUrl: 'https://mui.com/static/images/avatar/2.jpg',
                 },
