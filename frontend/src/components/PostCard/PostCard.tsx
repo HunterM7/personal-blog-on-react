@@ -87,7 +87,7 @@ const PostCard: React.FC<IPostCard> = ({
             ))}
           </ul>
 
-          {isFullPost && <div className={styles.content}>{post.text}</div>}
+          {isFullPost && <p className={styles.content}>{post.text}</p>}
 
           <ul className={styles.postDetails}>
             <li>
